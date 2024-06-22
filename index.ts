@@ -2,6 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResultV2, Handler } from "aws-lamb
 
 export const handler: Handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResultV2> => {
     return {
-        body: "Hello there!",
+        statusCode: 200,
+        body: "Hello there, I was deployed using aws-cli!",
     }
 }

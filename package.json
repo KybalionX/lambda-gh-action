@@ -5,5 +5,8 @@
     "@types/node": "^20.14.8",
     "@vercel/ncc": "^0.38.1",
     "lodash": "^4.17.21"
+  },
+  "dependencies": {
+    "typescript": "^5.5.2"
   }
 }
