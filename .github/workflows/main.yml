@@ -26,6 +26,6 @@ jobs:
           npm install
       - name: deploy
         run: |
-         build /w ncc
+         npx ncc build /w ncc
          zip -j deploy.zip ./dist/*
         # aws cli - deploy code
