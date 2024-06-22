@@ -26,6 +26,6 @@ jobs:
           npm install
       - name: deploy
         run: |
-         npx ncc build index.ts 
-         zip -j deploy.zip ./dist/*
-         aws lambda update-function-code --function-name=save-user-lambda --zip-file=fileb://deploy.zip 
+          npx ncc build index.ts 
+          zip -j deploy.zip ./dist/*
+          aws lambda update-function-code --function-name=save-user-lambda --zip-file=fileb://deploy.zip 
