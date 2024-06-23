@@ -5,6 +5,7 @@ type LambdaResponse = APIGatewayProxyResultV2 & {
 };
 
 export const handler: Handler = async (event: APIGatewayProxyEvent): Promise<LambdaResponse> => {
+    console.log("Event Information: ",event);
     return {
         statusCode: 200,
         body: "Hello there, I was deployed using aws-cli!",
