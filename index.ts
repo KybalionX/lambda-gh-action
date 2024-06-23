@@ -15,6 +15,8 @@ export const handler = async (event, context) => {
     "Content-Type": "application/json",
   };
 
+  console.log("EVENT: ",event);
+
   try {
       let requestJSON = JSON.parse(event.body);
     await dynamo.send(
