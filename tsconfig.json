@@ -2,6 +2,7 @@
     "compilerOptions": {
         "target": "ES2021",
         "moduleResolution": "node",
-        "outDir": "dist"
+        "outDir": "dist",
+        "module": "commonjs"
     }
 }
