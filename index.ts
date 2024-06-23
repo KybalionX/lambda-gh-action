@@ -3,6 +3,7 @@ import {
   DynamoDBDocumentClient,
   PutCommand,
 } from "@aws-sdk/lib-dynamodb";
+const { randomUUID } = require('crypto'); // Added in: node v14.17.0
 
 const client = new DynamoDBClient({});
 const dynamo = DynamoDBDocumentClient.from(client);
@@ -24,6 +25,7 @@ export const handler = async (event, context) => {
             new PutCommand({
               TableName: tableName,
               Item: {
+                id: randomUUID(),
                 price: requestJSON.price,
                 name: requestJSON.name,
               },
