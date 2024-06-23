@@ -15,20 +15,25 @@ export const handler = async (event, context) => {
     "Content-Type": "application/json",
   };
 
-  console.log("EVENT: ",event);
+  console.log("EVENT: ",event.Records);
 
   try {
-      let requestJSON = JSON.parse(event.body);
-    await dynamo.send(
-        new PutCommand({
-          TableName: tableName,
-          Item: {
-            price: requestJSON.price,
-            name: requestJSON.name,
-          },
-        })
-      );
-      body = `Put item ${requestJSON.id}`;
+      const storePromises = event.Records.map(record => {
+          let requestJSON = JSON.parse(record.body);
+        return dynamo.send(
+            new PutCommand({
+              TableName: tableName,
+              Item: {
+                price: requestJSON.price,
+                name: requestJSON.name,
+              },
+            })
+          );
+      });
+
+      await Promise.all(storePromises);
+    
+      body = `Stored Items!`;
     } catch (error) {
         console.log("Error trying to insert a record in DynamoDB", error);
     }
