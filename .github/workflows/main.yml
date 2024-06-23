@@ -26,6 +26,6 @@ jobs:
           npm install
       - name: deploy
         run: |
-          npx ts-node index.ts
+          npx tsc -b
           zip -j deploy.zip ./dist/*
           aws lambda update-function-code --function-name=save-user-lambda --zip-file=fileb://deploy.zip 
