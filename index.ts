@@ -1,14 +1,39 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResultV2, Handler } from "aws-lambda"
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import {
+  DynamoDBDocumentClient,
+  PutCommand,
+} from "@aws-sdk/lib-dynamodb";
 
-type LambdaResponse = APIGatewayProxyResultV2 & {
-    event: APIGatewayProxyEvent,
+const client = new DynamoDBClient({});
+const dynamo = DynamoDBDocumentClient.from(client);
+const tableName = "users-table";
+
+export const handler = async (event, context) => {
+  let body;
+  let statusCode = 200;
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  try {
+      let requestJSON = JSON.parse(event.body);
+    await dynamo.send(
+        new PutCommand({
+          TableName: tableName,
+          Item: {
+            price: requestJSON.price,
+            name: requestJSON.name,
+          },
+        })
+      );
+      body = `Put item ${requestJSON.id}`;
+    } catch (error) {
+        console.log("Error trying to insert a record in DynamoDB");
+    }
+
+  return {
+    statusCode,
+    body,
+    headers,
+  };
 };
-
-export const handler: Handler = async (event: APIGatewayProxyEvent): Promise<LambdaResponse> => {
-    console.log("Event Information: ",event);
-    return {
-        statusCode: 200,
-        body: "Hello there, I was deployed using aws-cli!",
-        event,
-    };
-}
