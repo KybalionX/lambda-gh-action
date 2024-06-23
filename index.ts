@@ -28,7 +28,7 @@ export const handler = async (event, context) => {
       );
       body = `Put item ${requestJSON.id}`;
     } catch (error) {
-        console.log("Error trying to insert a record in DynamoDB");
+        console.log("Error trying to insert a record in DynamoDB", error);
     }
 
   return {
