@@ -29,7 +29,10 @@ export const handler = async (event, context) => {
       dynamo.send(
         new PutCommand({
           TableName: tableName,
-          Item: record,
+          Item: {
+            ...record,
+            id: randomUUID(),
+          },
         })
       )
     );
